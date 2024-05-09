@@ -1,5 +1,9 @@
 package test.clearsolution.service.impl;
 
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import test.clearsolution.mapper.Mapper;
@@ -9,14 +13,15 @@ import test.clearsolution.exception.EntityNotFoundException;
 import test.clearsolution.model.User;
 import test.clearsolution.repository.UserRepository;
 import test.clearsolution.service.UserService;
-
 import java.util.Map;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Mapper<CreateRequestUserDto, User, UserDto> userMapper;
+    private final Validator validator;
 
     @Override
     public UserDto create(CreateRequestUserDto createRequestUserDto) {
@@ -44,6 +49,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateFields(Long id, Map<String, Object> fieldMap) {
+        User user = findById(id);
+        CreateRequestUserDto updatedUser = userMapper.updateByFields(user, fieldMap);
+
+        Set<ConstraintViolation<CreateRequestUserDto>> violations = validator.validate(updatedUser);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
+//        return userMapper.toDto(updatedUser);
         return null;
     }
 

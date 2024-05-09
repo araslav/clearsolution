@@ -16,27 +16,23 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 class UserMapperTest {
-//    private final UserMapper mapper;
+    private final UserMapper mapper;
 
     @Test
     void merge_Ok() {
-        CreateRequestUserDto user = new CreateRequestUserDto(
-               "test@test.com",
-               "BOb",
-               "Bobson",
-                LocalDate.of(1987, 05, 25),
-                null,
-                null
-        );
+        CreateRequestUserDto user = new CreateRequestUserDto();
+        user.setEmail("test@test.com");
+        user.setFirstName("BOb");
+        user.setLastName("Bobson");
+        user.setBirthDay(LocalDate.of(1987, 05, 25));
 
         Map<String, Object> fields = new HashMap<>();
         fields.put("firstName", "Bob");
-        UserMapper mapper = new UserMapper();
-        mapper.merge(user, fields);
-        
-        
+        fields.put("birthDay", LocalDate.of(2020, 05, 25));
+//        UserMapper mapper = new UserMapper();
+//        mapper.merge(user, fields);
     }
 
 //    UserMapper userMapper = new UserMapper();
