@@ -2,15 +2,15 @@ package test.clearsolution.mapper;
 
 import org.springframework.stereotype.Component;
 import test.clearsolution.dto.CreateRequestUserDto;
+import test.clearsolution.dto.UpdateRequestUserDto;
 import test.clearsolution.dto.UserDto;
 import test.clearsolution.model.User;
 import java.lang.reflect.Field;
 import java.util.Map;
 
 @Component
-public class UserMapper implements Mapper<CreateRequestUserDto, User, UserDto> {
+public class UserMapper {
 
-    @Override
     public User toModel(CreateRequestUserDto dto) {
         User user = new User();
         user.setEmail(dto.getEmail());
@@ -22,7 +22,6 @@ public class UserMapper implements Mapper<CreateRequestUserDto, User, UserDto> {
         return user;
     }
 
-    @Override
     public UserDto toDto(User model) {
         return new UserDto(
                 model.getId(),
@@ -35,8 +34,16 @@ public class UserMapper implements Mapper<CreateRequestUserDto, User, UserDto> {
         );
     }
 
-    @Override
-    public CreateRequestUserDto updateByFields(User user, Map<String, Object> fieldMap) {
+    public User mergeDtoToModel(UpdateRequestUserDto dto, User user) {
+        user.setEmail(dto.getEmail());
+        user.setFirsName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setAddress(dto.getAddress());
+        user.setPhone(dto.getPhone());
+        return user;
+    }
+
+    public CreateRequestUserDto mergeByFields(User user, Map<String, Object> fieldMap) {
         CreateRequestUserDto createDto = new CreateRequestUserDto();
         createDto.setFirstName(user.getFirsName());
         createDto.setLastName(user.getLastName());

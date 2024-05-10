@@ -7,13 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import test.clearsolution.validation.age.AgeGraterThan;
 import test.clearsolution.validation.email.Email;
-import test.clearsolution.validation.email.UniqueEmail;
+import test.clearsolution.validation.email.UniqueEmailCreate;
 
 @Getter
 @Setter
 public class CreateRequestUserDto {
         @Email
-        @UniqueEmail
+        @UniqueEmailCreate
         private String email;
         @NotBlank(message = "First name can't be Null or Empty")
         private String firstName;

@@ -1,6 +1,7 @@
 package test.clearsolution.service;
 
 import test.clearsolution.dto.CreateRequestUserDto;
+import test.clearsolution.dto.UpdateRequestUserDto;
 import test.clearsolution.dto.UserDto;
 
 import java.util.Map;
@@ -10,7 +11,7 @@ public interface UserService {
 
     Boolean isIsset(String email);
 
-    UserDto update(Long id, CreateRequestUserDto dto);
+    UserDto update(Long id, UpdateRequestUserDto dto);
 
     void deleteById(Long id);
 

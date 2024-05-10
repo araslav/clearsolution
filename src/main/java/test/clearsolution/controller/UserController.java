@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import test.clearsolution.dto.CreateRequestUserDto;
+import test.clearsolution.dto.UpdateRequestUserDto;
 import test.clearsolution.dto.UserDto;
 import test.clearsolution.repository.UserRepository;
 import test.clearsolution.service.UserService;
-
 import java.util.Map;
 
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class UserController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public UserDto updateUser(@PathVariable Long id,
-                              @RequestBody @Valid CreateRequestUserDto dto) {
+                              @RequestBody @Valid UpdateRequestUserDto dto) {
         return userService.update(id, dto);
     }
 

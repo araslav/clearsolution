@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import test.clearsolution.service.UserService;
 
 @RequiredArgsConstructor
-public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
+public class UniqueEmailValidator implements ConstraintValidator<UniqueEmailCreate, String> {
     private final UserService userService;
 
     @Override
