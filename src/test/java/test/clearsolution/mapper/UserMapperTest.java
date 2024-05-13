@@ -2,19 +2,11 @@ package test.clearsolution.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import test.clearsolution.dto.CreateRequestUserDto;
-import test.clearsolution.dto.UserDto;
-import test.clearsolution.model.User;
+import test.clearsolution.dto.RequestUserDto;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @RequiredArgsConstructor
 class UserMapperTest {
@@ -22,7 +14,7 @@ class UserMapperTest {
 
     @Test
     void merge_Ok() {
-        CreateRequestUserDto user = new CreateRequestUserDto();
+        RequestUserDto user = new RequestUserDto();
         user.setEmail("test@test.com");
         user.setFirstName("BOb");
         user.setLastName("Bobson");

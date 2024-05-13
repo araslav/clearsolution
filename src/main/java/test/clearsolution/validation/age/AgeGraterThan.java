@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AgeGraterThan {
 
-//    String message() default "Age less than min value";
     String message() default "Age should be grater than or equal to ";
 
     int minAge() default 0;

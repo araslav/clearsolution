@@ -36,20 +36,25 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(body, headers, status);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    protected ResponseEntity<Object> handleConstraintViolation(
-            ConstraintViolationException ex, WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST);
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    protected ResponseEntity<Object> handleConstraintViolation(
+//            ConstraintViolationException ex, WebRequest request) {
+//        Map<String, Object> body = new LinkedHashMap<>();
+//        body.put("timestamp", LocalDateTime.now());
+//        body.put("status", HttpStatus.BAD_REQUEST);
+//
+//        List<String> errors = ex.getConstraintViolations().stream()
+//                .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+//                .toList();
+//
+//        body.put("errors", errors);
+//
+//        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+//    }
 
-        List<String> errors = ex.getConstraintViolations().stream()
-                .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                .collect(Collectors.toList());
-
-        body.put("errors", errors);
-
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler({CustomNoSuchFieldException.class, EntityNotFoundException.class})
+    public ResponseEntity<Object> handleCustomException(RuntimeException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private String getErrorMessage(ObjectError e) {

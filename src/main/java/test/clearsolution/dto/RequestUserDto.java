@@ -7,20 +7,18 @@ import lombok.Getter;
 import lombok.Setter;
 import test.clearsolution.validation.age.AgeGraterThan;
 import test.clearsolution.validation.email.Email;
-import test.clearsolution.validation.email.UniqueEmailCreate;
 
 @Getter
 @Setter
-public class CreateRequestUserDto {
+public class RequestUserDto {
         @Email
-        @UniqueEmailCreate
         private String email;
         @NotBlank(message = "First name can't be Null or Empty")
         private String firstName;
         @NotBlank(message = "Last name can't be Null or Empty")
         private String lastName;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
         @AgeGraterThan
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
         private LocalDate birthDay;
         private String address;
         private String phone;

@@ -1,16 +1,21 @@
 package test.clearsolution.validation.email;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import test.clearsolution.model.User;
 import test.clearsolution.service.UserService;
 
 @RequiredArgsConstructor
-public class UniqueEmailValidator implements ConstraintValidator<UniqueEmailCreate, String> {
+@Component
+public class UniqueEmailValidator {
     private final UserService userService;
 
-    @Override
-    public boolean isValid(String email, ConstraintValidatorContext context) {
+    public boolean validate(String email, User user) {
+        if (user.getEmail().equals(email)) {
+            return false;
+        }
+
         return userService.isIsset(email);
     }
+
 }

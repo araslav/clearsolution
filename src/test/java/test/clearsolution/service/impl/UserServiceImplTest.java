@@ -10,12 +10,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import test.clearsolution.model.User;
 import test.clearsolution.repository.UserRepository;
-import test.clearsolution.service.UserService;
 
 import java.time.LocalDate;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -33,7 +30,7 @@ class UserServiceImplTest {
         User user = new User();
         user.setId(1L);
         user.setEmail(email);
-        user.setFirsName("Bob");
+        user.setFirstName("Bob");
         user.setLastName("Bobson");
         user.setBirthday(LocalDate.of(1990, 1, 1));
 
