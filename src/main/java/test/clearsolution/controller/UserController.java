@@ -9,7 +9,6 @@ import test.clearsolution.dto.UserDto;
 import test.clearsolution.dto.UserSearchParameters;
 import test.clearsolution.repository.UserRepository;
 import test.clearsolution.service.UserService;
-
 import java.util.List;
 import java.util.Map;
 

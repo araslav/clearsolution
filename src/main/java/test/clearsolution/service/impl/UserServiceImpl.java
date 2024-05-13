@@ -12,7 +12,6 @@ import test.clearsolution.mapper.UserMapper;
 import test.clearsolution.model.User;
 import test.clearsolution.repository.UserRepository;
 import test.clearsolution.service.UserService;
-
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> search(UserSearchParameters searchParameters) {
-
+        userRepository.findByBir
         return List.of();
     }
 
