@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import test.clearsolution.dto.RequestUserDto;
+import test.clearsolution.dto.UserRequestDto;
 import test.clearsolution.dto.UserDto;
 import test.clearsolution.dto.UserSearchParameters;
 import test.clearsolution.repository.UserRepository;
@@ -21,14 +21,14 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody @Valid RequestUserDto dto) {
-        return userService.create(dto);
+    public UserDto createUser(@RequestBody @Valid UserRequestDto dto) {
+        return userService.save(dto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public UserDto updateUser(@PathVariable Long id,
-                              @RequestBody @Valid RequestUserDto dto) {
+                              @RequestBody @Valid UserRequestDto dto) {
         return userService.update(id, dto);
     }
 

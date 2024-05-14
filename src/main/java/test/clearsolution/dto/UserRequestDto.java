@@ -10,7 +10,7 @@ import test.clearsolution.validation.email.Email;
 
 @Getter
 @Setter
-public class RequestUserDto {
+public class UserRequestDto {
         @Email
         private String email;
         @NotBlank(message = "First name can't be Null or Empty")

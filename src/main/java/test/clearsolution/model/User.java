@@ -24,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
-    private LocalDate birthday;
+    private LocalDate birthDay;
     private String address;
     private String phone;
     @Column(nullable = false)

@@ -4,7 +4,7 @@ package test.clearsolution.service.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import test.clearsolution.dto.RequestUserDto;
+import test.clearsolution.dto.UserRequestDto;
 import test.clearsolution.dto.UserDto;
 import test.clearsolution.dto.UserSearchParameters;
 import test.clearsolution.exception.EntityNotFoundException;
@@ -12,6 +12,7 @@ import test.clearsolution.mapper.UserMapper;
 import test.clearsolution.model.User;
 import test.clearsolution.repository.UserRepository;
 import test.clearsolution.service.UserService;
+import test.clearsolution.util.DateUtil;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto create(RequestUserDto createRequestUserDto) {
+    public UserDto save(UserRequestDto createRequestUserDto) {
         return userMapper.toDto(
                 userRepository.save(
                         userMapper.toModel(createRequestUserDto)));
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto update(Long id, RequestUserDto dto) {
+    public UserDto update(Long id, UserRequestDto dto) {
         User user = findById(id);
         userMapper.mergeDtoToModel(dto, user);
         return userMapper.toDto(userRepository.save(user));
@@ -50,8 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> search(UserSearchParameters searchParameters) {
-        userRepository.findByBir
-        return List.of();
+        return userRepository.findByBirthDayBetween(
+                DateUtil.convertStringToDate(searchParameters.dateFrom()),
+                DateUtil.convertStringToDate(searchParameters.dateTo()))
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 
     @Override

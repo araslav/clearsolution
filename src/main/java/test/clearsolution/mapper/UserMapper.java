@@ -2,10 +2,12 @@ package test.clearsolution.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import test.clearsolution.dto.RequestUserDto;
+import test.clearsolution.dto.UserRequestDto;
 import test.clearsolution.dto.UserDto;
 import test.clearsolution.exception.CustomNoSuchFieldException;
 import test.clearsolution.model.User;
+import test.clearsolution.util.DateUtil;
+
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,12 +17,12 @@ import java.util.Map;
 @Component
 public class UserMapper {
 
-    public User toModel(RequestUserDto dto) {
+    public User toModel(UserRequestDto dto) {
         User user = new User();
         user.setEmail(dto.getEmail());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setBirthday(dto.getBirthDay());
+        user.setBirthDay(dto.getBirthDay());
         user.setAddress(dto.getAddress());
         user.setPhone(dto.getPhone());
         return user;
@@ -32,13 +34,13 @@ public class UserMapper {
                 model.getEmail(),
                 model.getFirstName(),
                 model.getLastName(),
-                model.getBirthday(),
+                model.getBirthDay(),
                 model.getAddress(),
                 model.getPhone()
         );
     }
 
-    public void mergeDtoToModel(RequestUserDto dto, User user) {
+    public void mergeDtoToModel(UserRequestDto dto, User user) {
         user.setEmail(dto.getEmail());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
@@ -48,15 +50,15 @@ public class UserMapper {
     }
 
     public void mergeByFields(User user, Map<String, Object> fieldMap) {
-        RequestUserDto requestUserDto = toRequestUserDto(user);
+        UserRequestDto requestUserDto = toRequestUserDto(user);
 
-        Class<? extends RequestUserDto> createUserClass = requestUserDto.getClass();
+        Class<? extends UserRequestDto> createUserClass = requestUserDto.getClass();
         fieldMap.forEach((key, value) -> {
             try {
                 Field field = createUserClass.getDeclaredField(key);
                 field.setAccessible(true);
                 field.set(requestUserDto, field.getName().equals("birthDay") ?
-                        LocalDate.parse(value.toString(), DateTimeFormatter.ofPattern("dd-MM-yyyy")) : value);
+                        LocalDate.parse(value.toString(), DateTimeFormatter.ofPattern(DateUtil.getDatePattern())) : value);
                 field.setAccessible(false);
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 throw new CustomNoSuchFieldException("Field " + key + " doesn't exist");
@@ -66,12 +68,12 @@ public class UserMapper {
 //        return mergeDtoToModel(requestUserDto, user);
     }
 
-    public RequestUserDto toRequestUserDto(User user) {
-        RequestUserDto createDto = new RequestUserDto();
+    public UserRequestDto toRequestUserDto(User user) {
+        UserRequestDto createDto = new UserRequestDto();
         createDto.setFirstName(user.getFirstName());
         createDto.setLastName(user.getLastName());
         createDto.setEmail(user.getEmail());
-        createDto.setBirthDay(user.getBirthday());
+        createDto.setBirthDay(user.getBirthDay());
         createDto.setPhone(user.getPhone());
         createDto.setAddress(user.getAddress());
         return createDto;

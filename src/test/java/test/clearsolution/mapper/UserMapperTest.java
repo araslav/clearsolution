@@ -2,7 +2,7 @@ package test.clearsolution.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import test.clearsolution.dto.RequestUserDto;
+import test.clearsolution.dto.UserRequestDto;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ class UserMapperTest {
 
     @Test
     void merge_Ok() {
-        RequestUserDto user = new RequestUserDto();
+        UserRequestDto user = new UserRequestDto();
         user.setEmail("test@test.com");
         user.setFirstName("BOb");
         user.setLastName("Bobson");
