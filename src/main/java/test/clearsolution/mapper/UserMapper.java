@@ -7,13 +7,11 @@ import test.clearsolution.dto.UserDto;
 import test.clearsolution.exception.CustomNoSuchFieldException;
 import test.clearsolution.model.User;
 import test.clearsolution.util.DateUtil;
-
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Component
 public class UserMapper {
 
@@ -46,7 +44,7 @@ public class UserMapper {
         user.setLastName(dto.getLastName());
         user.setAddress(dto.getAddress());
         user.setPhone(dto.getPhone());
-//        return user;
+        user.setBirthDay(dto.getBirthDay());
     }
 
     public void mergeByFields(User user, Map<String, Object> fieldMap) {
@@ -64,8 +62,6 @@ public class UserMapper {
                 throw new CustomNoSuchFieldException("Field " + key + " doesn't exist");
             }
         });
-
-//        return mergeDtoToModel(requestUserDto, user);
     }
 
     public UserRequestDto toRequestUserDto(User user) {
